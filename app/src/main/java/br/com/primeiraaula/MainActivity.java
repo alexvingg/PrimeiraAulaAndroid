@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 while (numberOne == numberTwo){
                     numberTwo = (int)(Math.random()*100);
                 }
-                
+
                 buttonOne.setText(String.valueOf(numberOne));
                 buttonTwo.setText(String.valueOf(numberTwo));
 
