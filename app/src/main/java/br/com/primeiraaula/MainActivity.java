@@ -16,84 +16,69 @@ public class MainActivity extends AppCompatActivity {
 
     Integer point = 0;
 
+    Button buttonTwo;
+    Button buttonOne;
+    TextView text;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final TextView text =  (TextView) findViewById(R.id.textView);
-        text.setText(point.toString());
-
-        final Button buttonOne = (Button) findViewById(R.id.button);
-        int numberOne = (int)(Math.random()*100);
-
-        int numberTwo = (int)(Math.random()*100);
-        final Button buttonTwo = (Button) findViewById(R.id.button2);
-
-        buttonOne.setText(String.valueOf(numberOne));
+        this.montarBotoes();
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(Integer.parseInt(buttonOne.getText().toString()) > Integer.parseInt(buttonTwo.getText().toString())){
-                    point = point + 1;
-                    Toast toast = Toast.makeText(MainActivity.this, "Você marcou um ponto", Toast.LENGTH_SHORT);
-                    toast.show();
-                }else{
-                    Toast toast = Toast.makeText(MainActivity.this, "Você errou.", Toast.LENGTH_SHORT);
-                    toast.show();
-                    point = point - 1;
-                }
-
-                text.setText(point.toString());
-
-                int numberOne = (int)(Math.random()*100);
-                int numberTwo = (int)(Math.random()*100);
-
-                while (numberOne == numberTwo){
-                    numberTwo = (int)(Math.random()*100);
-                }
-
-                buttonOne.setText(String.valueOf(numberOne));
-                buttonTwo.setText(String.valueOf(numberTwo));
-
-                //Toast toast = Toast.makeText(MainActivity.this, "Button one", Toast.LENGTH_SHORT);
-                //toast.show();
+                verificarResposta(buttonOne.getText().toString(),buttonTwo.getText().toString());
             }
         });
 
 
-        buttonTwo.setText(String.valueOf(numberTwo));
         buttonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.parseInt(buttonTwo.getText().toString()) > Integer.parseInt(buttonOne.getText().toString())){
-                    point++;
-                    Toast toast = Toast.makeText(MainActivity.this, "Você marcou um ponto", Toast.LENGTH_SHORT);
-                    toast.show();
-                }else{
-                    Toast toast = Toast.makeText(MainActivity.this, "Você errou.", Toast.LENGTH_SHORT);
-                    toast.show();
-                    point--;
-                }
-                int numberOne = (int)(Math.random()*100);
-                int numberTwo = (int)(Math.random()*100);
-
-                while (numberOne == numberTwo){
-                    numberTwo = (int)(Math.random()*100);
-                }
-
-                buttonOne.setText(String.valueOf(numberOne));
-                buttonTwo.setText(String.valueOf(numberTwo));
-
-                text.setText(point.toString());
+                verificarResposta(buttonTwo.getText().toString(),buttonOne.getText().toString());
             }
         });
 
     }
 
-    private boolean validaNumero(Integer numeroClicado, Integer numero){
-        return numeroClicado > numero;
+    public void montarBotoes(){
+        text =  (TextView) findViewById(R.id.textView);
+        text.setText(point.toString());
+
+        buttonOne = (Button) findViewById(R.id.button);
+        int numberOne = (int)(Math.random()*100);
+
+        int numberTwo = (int)(Math.random()*100);
+        buttonTwo = (Button) findViewById(R.id.button2);
+
+        buttonOne.setText(String.valueOf(numberOne));
+        buttonTwo.setText(String.valueOf(numberTwo));
+
+    }
+
+    public void verificarResposta(String numeroClicado, String numero){
+        if(Integer.parseInt(numeroClicado) > Integer.parseInt(numero)){
+            point++;
+            Toast toast = Toast.makeText(MainActivity.this, "Você marcou um ponto", Toast.LENGTH_SHORT);
+            toast.show();
+        }else{
+            Toast toast = Toast.makeText(MainActivity.this, "Você errou.", Toast.LENGTH_SHORT);
+            toast.show();
+            point--;
+        }
+
+        int numberOne = (int)(Math.random()*100);
+        int numberTwo = (int)(Math.random()*100);
+
+        while (numberOne == numberTwo){
+            numberTwo = (int)(Math.random()*100);
+        }
+
+        buttonOne.setText(String.valueOf(numberOne));
+        buttonTwo.setText(String.valueOf(numberTwo));
+
+        text.setText(point.toString());
     }
 
     @Override
